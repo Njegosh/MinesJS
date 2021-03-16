@@ -8,6 +8,8 @@ let firstPress = true;          // to mark the first press, to generate a
 let player = true;              // to not allow player to continue playing after pressing a mine
 
 let theme = 'light';
+let pallete = ['orange', 'purple', 'green', 'pink', 'blue'];
+let color = pallete[0];
 
 function generateMap(){
     let playingField = document.getElementById("playingField");
@@ -151,6 +153,23 @@ function switchClick() {
         document.getElementById('switch-backdrop').classList.remove('switchOn');
     }
     document.documentElement.setAttribute('data-theme', theme);
+}
+
+function palleteChange(){
+
+    let n;
+
+    for(let i=0; i<pallete.length; i++){
+        if(color==pallete[i]){
+            n=i+1;
+            break;
+        }
+    }
+
+    if(n>=pallete.length) n=0;
+    color=pallete[n];
+
+    document.documentElement.setAttribute('pallete', color);
 }
 
 function restart(){

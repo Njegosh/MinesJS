@@ -8,28 +8,58 @@ html {
     --fore-element: hsl(0, 0%, 95%);
     --switch: hsl(0, 0%, 75%);
     --button-text: hsl(0, 0%, 100%);
+    --fore-color: hsl(260, 13%, 18%);
 
     --victory-fore: hsl(98, 85%, 46%);
-    --defeat-fore: hsl(0, 85%, 48%);
+    --defeat-fore: var(--red);
 }
 
 html[data-theme='dark']{
-    --main-color: hsl(39, 74%, 60%);
+    --dark-main: hsl(39, 74%, 60%);
+    --main-color: var(--dark-main);
     --box: hsl(260, 13%, 18%);
     --background: hsl(252, 9%, 10%);
     --text-color: hsl(0, 0%, 81%);
     --red: hsl(9, 87%, 39%);
     --button-disabled: hsl(0, 0%, 6%);
     --fore-element: hsl(0, 0%, 20%);
-    --switch: hsl(0, 0%, 7%);
+    --switch: var(--main-color);
     --button-text: hsl(0, 0%, 0%);
+    --fore-color: var(--button-text);
 
     --victory-fore: hsl(120, 100%, 38%);
-    --defeat-fore: hsl(0, 85%, 39%);
+    --defeat-fore: var(--red);
+}
+
+html[pallete='orange']{
+    --main-color: hsl(39, 74%, 60%);
+    --dark-main:hsl(39, 74%, 60%);
+    --red: hsl(9, 87%, 39%);
+}
+
+html[pallete='purple']{
+    --main-color: hsl(276, 76%, 53%);
+    --dark-main: hsl(276, 50%, 32%);
+    --red: hsl(337, 100%, 40%);
+}
+html[pallete='green']{
+    --main-color: hsl(115, 73%, 48%);
+    --dark-main:hsl(115, 49%, 51%);
+    --red: hsl(337, 100%, 40%);
+}
+html[pallete='pink']{
+    --main-color: rgb(233, 87, 131);
+    --dark-main: hsl(342, 64.1%, 54.1%);
+    --red: hsl(46, 98%, 48%);
+}
+html[pallete='blue']{
+    --main-color: hsl(217, 66%, 63%);
+    --dark-main: hsl(217, 29%, 46%);
+    --red: hsl(49, 86%, 49%);
 }
 
 *{
-    transition: cubic-bezier(0.86, 0, 0.07, 1);
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1);/*cubic-bezier(0.86, 0, 0.07, 1);*/
     transition-duration:  200ms;
 }
 
@@ -111,7 +141,7 @@ body{
 
 .play-again {
     background-color: var(--main-color);
-    color: var(--button-text);
+    color: var(--fore-color);
 
     padding: 1rem;
     font-size: 1.5rem;
@@ -166,9 +196,6 @@ body{
 .switch-head.switchOn {
     left: 2.25rem;
 }
-.switch-backdrop.switchOn {
-    background-color: var(--main-color);
-}
 
 .switch-head:hover {
     filter: brightness(150%) saturate(80%);
@@ -197,4 +224,43 @@ body{
     color: var(--defeat-fore);
 
     font-size: 4rem;
+}
+
+.github {
+    color: var(--switch);
+
+    padding: 0;
+    font-size: 4rem;
+
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+}
+.github:hover {
+    color: var(--main-color);
+    filter: brightness(150%) saturate(80%);
+}
+
+.pallete {
+    color: var(--main-color);
+
+    padding: 0;
+    font-size: 4rem;
+    background: none;
+    border: none;
+
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+
+    cursor: pointer;
+}
+
+.pallete:hover {
+    filter: brightness(150%) saturate(80%);
+}
+
+.pallete:active {
+    font-size: 3.5rem;
+    padding: 0.25rem;
 }
