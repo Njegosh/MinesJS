@@ -10,6 +10,7 @@ html {
     --button-text: hsl(0, 0%, 100%);
 
     --victory-fore: hsl(98, 85%, 46%);
+    --defeat-fore: hsl(0, 85%, 48%);
 }
 
 html[data-theme='dark']{
@@ -24,6 +25,7 @@ html[data-theme='dark']{
     --button-text: hsl(0, 0%, 0%);
 
     --victory-fore: hsl(120, 100%, 38%);
+    --defeat-fore: hsl(0, 85%, 39%);
 }
 
 *{
@@ -187,6 +189,12 @@ body{
 
 .victory {
     color: var(--victory-fore);
+
+    font-size: 4rem;
+}
+
+.game-over {
+    color: var(--defeat-fore);
 
     font-size: 4rem;
 }

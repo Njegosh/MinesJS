@@ -1,11 +1,11 @@
 let size = 10;
 let nMines = 15;
 
-let mines = new Array(size);      // position of mines: 1-mine 0-no mine
-let opened = new Array(size);     // has it been opened, and number of mines around it: -1-not opened  0-8 - opened with nthe number of mines 
-let buttons;    // dictionary map of buttons
+let mines = new Array(size);    // position of mines: 1-mine 0-no mine
+let opened = new Array(size);   // has it been opened, and number of mines around it: -1-not opened  0-8 - opened with nthe number of mines 
 
-let firstPress = true;
+let firstPress = true;          // to mark the first press, to generate a
+let player = true;              // to not allow player to continue playing after pressing a mine
 
 let theme = 'light';
 
@@ -15,15 +15,13 @@ function generateMap(){
 
     mines = new Array(size);
     opened = new Array(size);
-    buttons = new Map();
 
     for(let i = 0; i < size; i++){
         for(let j = 0; j < size; j++){
             let idNumber = i*100 + j;
             fieldButtonAsset.setAttribute('id',idNumber.toString());
             fieldButtonAsset.setAttribute('onClick','fieldClicked('+i+','+j+');');
-            //fieldButtonAsset = document.getElementById(idNumber.toString());
-
+            
             playingField.innerHTML += fieldButtonAsset.outerHTML;
         }
         playingField.innerHTML += "<br>";
@@ -63,39 +61,41 @@ function generateMines(y, x){
 }
 
 function openField(y, x){
-    if(mines[y][x]==0){
-        document.getElementById(y*100+x).disabled = true;
-        opened[y][x]=0;
+    if(player){
+        if(mines[y][x]==0){
+            document.getElementById(y*100+x).disabled = true;
+            opened[y][x]=0;
 
-        for(let i=y-1; i<=y+1; i++){
-            for(let j=x-1; j<=x+1; j++){
-                console.log(i + ' ' + j);
-                if(i>=0 && i<size && j>=0 && j<size){
-                    if(mines[i][j]!=0)
-                        opened[y][x]++;
-                }
-            }
-        }
-
-        if(opened[y][x]==0){
             for(let i=y-1; i<=y+1; i++){
-               for(let j=x-1; j<=x+1; j++){
+                for(let j=x-1; j<=x+1; j++){
+                    console.log(i + ' ' + j);
                     if(i>=0 && i<size && j>=0 && j<size){
-                        if(mines[i][j]==0 && opened[i][j]==-1)
-                            openField(i,j);
+                        if(mines[i][j]!=0)
+                            opened[y][x]++;
                     }
                 }
             }
+
+            if(opened[y][x]==0){
+                for(let i=y-1; i<=y+1; i++){
+                    for(let j=x-1; j<=x+1; j++){
+                        if(i>=0 && i<size && j>=0 && j<size){
+                            if(mines[i][j]==0 && opened[i][j]==-1)
+                                openField(i,j);
+                        }
+                    }
+                }
+            }
+            else{
+                document.getElementById(y*100+x).innerText = opened[y][x];
+            }
         }
         else{
-            document.getElementById(y*100+x).innerText = opened[y][x];
+            gameOver();
         }
-    }
-    else{
-        gameOver();
-    }
 
-    checkAll();
+        checkAll();
+    }
 }
 
 function checkAll(){
@@ -122,6 +122,11 @@ function gameOver(){
                 document.getElementById(i*100+j).classList.add('mine');
         }
     }
+
+    document.getElementById('alert').classList.add('game-over');
+    document.getElementById('alert').innerText = 'Game Over!';
+
+    player = false;
 }
 
 function fieldClicked(y, x){
@@ -158,6 +163,12 @@ function restart(){
     }
 
     firstPress = true;
+    player = true;
+
+    document.getElementById('alert').classList.remove('game-over');
+    document.getElementById('alert').classList.remove('victory');
+
+    
     generateMines();
     
 }
