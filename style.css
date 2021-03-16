@@ -1,0 +1,192 @@
+html {
+    --main-color: hsl(39, 74%, 60%);
+    --box: hsl(260, 13%, 18%);
+    --background: hsl(0, 0%, 100%);
+    --text-color: hsl(0, 0%, 0%);
+    --red: hsl(9, 93%, 45%);
+    --button-disabled: hsl(39, 68%, 85%);
+    --fore-element: hsl(0, 0%, 95%);
+    --switch: hsl(0, 0%, 75%);
+    --button-text: hsl(0, 0%, 100%);
+
+    --victory-fore: hsl(98, 85%, 46%);
+}
+
+html[data-theme='dark']{
+    --main-color: hsl(39, 74%, 60%);
+    --box: hsl(260, 13%, 18%);
+    --background: hsl(252, 9%, 10%);
+    --text-color: hsl(0, 0%, 81%);
+    --red: hsl(9, 87%, 39%);
+    --button-disabled: hsl(0, 0%, 6%);
+    --fore-element: hsl(0, 0%, 20%);
+    --switch: hsl(0, 0%, 7%);
+    --button-text: hsl(0, 0%, 0%);
+
+    --victory-fore: hsl(120, 100%, 38%);
+}
+
+*{
+    transition: cubic-bezier(0.86, 0, 0.07, 1);
+    transition-duration:  200ms;
+}
+
+body{
+    background-color: var(--background);
+}
+
+.wrapper {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.box {
+    background-color: var(--box);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+
+    padding: 0.5rem;
+}
+
+.playing-field {
+    display: flex;
+    
+    background-color: var(--box);
+    color: var(--text-color);
+    border-radius: 1rem;
+    flex-wrap: wrap;
+
+    margin-bottom: 0.5rem;
+
+
+    width: 32rem;
+
+    z-index: -100;
+}
+
+.button {
+    display: inline-block;
+    
+    border: none;
+    border-radius: 0.25rem;
+    margin: 0.1rem;
+
+    cursor: pointer;
+}
+
+.button:hover {
+    filter: brightness(150%) saturate(80%);
+}
+
+.button:active {
+    filter: brightness(50%) saturate(80%);
+}
+
+.button:disabled {
+    background-color: var(--button-disabled);
+}
+
+.field-button{
+    display: inline-block;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 3rem;
+    height: 3rem;
+    background-color: var(--main-color);
+
+
+    overflow: hidden;
+}
+
+.field-button:disabled {
+    color: var(--text-color);
+    font-size: 2rem;
+}
+
+.play-again {
+    background-color: var(--main-color);
+    color: var(--button-text);
+
+    padding: 1rem;
+    font-size: 1.5rem;
+
+    position:relative;
+}
+
+.hidden {
+    display: none;
+}
+
+.mine {
+    background-color: var(--red);
+}
+
+.dark-switch {
+    display: block;
+    height: 3rem;
+    width: 5rem;
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+
+    cursor: pointer;
+}
+
+.switch-backdrop {
+    display: block;
+    position: absolute;
+    top:50%;
+    transform: translateY(-50%);
+    height: 3rem;
+    width: 5rem;
+    border-radius: 4rem;
+    margin: auto;
+    background-color: var(--switch);
+}
+
+.switch-head {
+    display: block;
+    position: absolute;
+    top:50%;
+    transform: translateY(-50%);
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 4rem;
+    left: 0.25rem;
+    margin: auto;
+    background-color: var(--fore-element);
+}
+
+.switch-head.switchOn {
+    left: 2.25rem;
+}
+.switch-backdrop.switchOn {
+    background-color: var(--main-color);
+}
+
+.switch-head:hover {
+    filter: brightness(150%) saturate(80%);
+}
+
+.alert {
+    display: block;
+    position: fixed;
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    font-size: 1rem;
+    color: transparent;
+
+    z-index: 100;
+}
+
+.victory {
+    color: var(--victory-fore);
+
+    font-size: 4rem;
+}
