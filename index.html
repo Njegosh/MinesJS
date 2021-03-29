@@ -4,7 +4,8 @@
         <link href="style.css" rel="stylesheet" type="text/css">
         <script src="mines.js"></script>
         <script src="https://kit.fontawesome.com/444daa6a6a.js" crossorigin="anonymous"></script>
-    </head>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@500&display=swap" rel="stylesheet"> </head>
     <body oncontextmenu="return false;">
         <div id="dark-switch" class="dark-switch" onclick="switchClick();">
             <div id="switch-backdrop" class="switch-backdrop">
@@ -23,6 +24,7 @@
             <div class="playing-field" id="playingField">
             </div>
             <button class="button play-again" onclick="restart();">
+                <i id="spinnable" class="fas fa-redo-alt"></i>
                 Restart
             </button>
         </div>
@@ -38,5 +40,4 @@
     for now i will write their html structure here.
 
     <button class="button field-button" id="" onclick="fieldClicked();"></button>
-    
 -->

@@ -22,7 +22,7 @@ function generateMap(){
         for(let j = 0; j < size; j++){
             let idNumber = i*100 + j;
             fieldButtonAsset.setAttribute('id',idNumber.toString());
-            fieldButtonAsset.setAttribute('onClick','fieldClicked('+i+','+j+');');
+            fieldButtonAsset.setAttribute('onmousedown','fieldClicked('+i+','+j+',event);');
             
             playingField.innerHTML += fieldButtonAsset.outerHTML;
         }
@@ -64,13 +64,12 @@ function generateMines(y, x){
 
 function openField(y, x){
     if(player){
-        if(mines[y][x]==0){
+        if(mines[y][x]==0 && !document.getElementById(y*100+x).classList.contains("flag")){
             document.getElementById(y*100+x).disabled = true;
             opened[y][x]=0;
 
             for(let i=y-1; i<=y+1; i++){
                 for(let j=x-1; j<=x+1; j++){
-                    console.log(i + ' ' + j);
                     if(i>=0 && i<size && j>=0 && j<size){
                         if(mines[i][j]!=0)
                             opened[y][x]++;
@@ -79,6 +78,7 @@ function openField(y, x){
             }
 
             if(opened[y][x]==0){
+                document.getElementById(y*100+x).innerText = '';
                 for(let i=y-1; i<=y+1; i++){
                     for(let j=x-1; j<=x+1; j++){
                         if(i>=0 && i<size && j>=0 && j<size){
@@ -92,7 +92,7 @@ function openField(y, x){
                 document.getElementById(y*100+x).innerText = opened[y][x];
             }
         }
-        else{
+        else if(mines[y][x]==1){
             gameOver();
         }
 
@@ -117,11 +117,42 @@ function checkAll(){
     }
 }
 
+function restart(){
+    if(document.getElementById('spinnable').classList.contains('spin')){
+        document.getElementById('spinnable').classList.add('spin2');
+        document.getElementById('spinnable').classList.remove('spin');
+    }
+    else{
+        document.getElementById('spinnable').classList.add('spin');
+        document.getElementById('spinnable').classList.remove('spin2');
+    }
+
+    for(let i = 0; i < size; i++){
+        for(let j = 0; j < size; j++){
+            document.getElementById(i*100+j).innerText='';
+            document.getElementById(i*100+j).classList.remove('mine');
+            document.getElementById(i*100+j).classList.remove('flag');
+            document.getElementById(i*100+j).disabled = false;
+        }
+    }
+
+    firstPress = true;
+    player = true;
+
+    document.getElementById('alert').classList.remove('game-over');
+    document.getElementById('alert').classList.remove('victory');
+
+    
+    generateMines();
+}
+
 function gameOver(){
     for(let i = 0; i < size; i++){
         for(let j = 0; j < size; j++){
-            if(mines[i][j]==1)
-                document.getElementById(i*100+j).classList.add('mine');
+            if(mines[i][j]==1){
+               document.getElementById(i*100+j).classList.add('mine');
+               document.getElementById(i*100+j).innerHTML='<i class="fas fa-times"></i>';
+            }
         }
     }
 
@@ -131,13 +162,30 @@ function gameOver(){
     player = false;
 }
 
-function fieldClicked(y, x){
-    if(firstPress)
-        generateMines(y, x);
-    openField(y, x);
-    firstPress=false;
+function fieldClicked(y, x, event){
+    event.preventDefault();
+    if(event.button==0){
+        if(firstPress){
+            generateMines(y, x);
+            openField(y, x);
+            firstPress=false;
+        }
+        if(!document.getElementById(y*100+x).classList.contains("flag"))
+            openField(y, x);
+    }
+    else if(event.button==2 && !firstPress)
+        flagField(y,x);
 }
 
+function flagField(y, x){
+    if(document.getElementById(y*100+x).classList.contains("flag")){
+        document.getElementById(y*100+x).classList.remove("flag");
+    }
+    else{
+        document.getElementById(y*100+x).classList.add("flag");
+        document.getElementById(y*100+x).innerHTML = '<i class="fas fa-flag"></i>';
+    }
+}
 
 function switchClick() {
 
@@ -170,26 +218,6 @@ function palleteChange(){
     color=pallete[n];
 
     document.documentElement.setAttribute('pallete', color);
-}
-
-function restart(){
-    for(let i = 0; i < size; i++){
-        for(let j = 0; j < size; j++){
-            document.getElementById(i*100+j).innerText='';
-            document.getElementById(i*100+j).classList.remove('mine');
-            document.getElementById(i*100+j).disabled = false;
-        }
-    }
-
-    firstPress = true;
-    player = true;
-
-    document.getElementById('alert').classList.remove('game-over');
-    document.getElementById('alert').classList.remove('victory');
-
-    
-    generateMines();
-    
 }
 
 window.onload = generateMap;

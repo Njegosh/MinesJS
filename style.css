@@ -63,6 +63,7 @@ html[data-theme='dark']{
 *{
     transition: cubic-bezier(0.075, 0.82, 0.165, 1);/*cubic-bezier(0.86, 0, 0.07, 1);*/
     transition-duration:  200ms;
+    font-family: 'Lexend', sans-serif;
 }
 
 body{
@@ -131,6 +132,7 @@ body{
     width: 3rem;
     height: 3rem;
     background-color: var(--main-color);
+    font-size: 0;
 
 
     overflow: hidden;
@@ -151,12 +153,35 @@ body{
     position:relative;
 }
 
+
+.spin{
+    animation: spinning 600ms ease;
+}
+
+.spin2{
+    animation: spinning2 600ms ease;
+}
+@keyframes spinning {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+  }
+@keyframes spinning2 {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+  }
+
 .hidden {
     display: none;
 }
 
 .mine {
     background-color: var(--red);
+    font-size: 2rem;
+}
+
+.flag {
+    color: var(--fore-color);
+    font-size: 2rem;
 }
 
 .dark-switch {
