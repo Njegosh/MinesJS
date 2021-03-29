@@ -46,7 +46,7 @@ function generateMines(y, x){
             for(let j=0; j<size; j++){
                 if(nMines_temp>0){
                     if(mines[i][j]==0){
-                        if(i!=y || j!=x){
+                        if(!(i>=y-1 && i<=y+1 && j>=x-1 && j<=x+1)){
                             let a = Math.floor(Math.random()*(size*size)/nMines);
                             if(a==0){
                                 nMines_temp--;
