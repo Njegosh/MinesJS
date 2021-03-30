@@ -108,6 +108,8 @@ body{
     border: none;
     border-radius: 0.25rem;
     margin: 0.1rem;
+    
+    color: var(--fore-color);
 
     cursor: pointer;
 }
@@ -180,7 +182,6 @@ body{
 }
 
 .flag {
-    color: var(--fore-color);
     font-size: 2rem;
 }
 
